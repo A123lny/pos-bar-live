@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/pos-bar-live/sw.js', { scope: '/pos-bar-live/' })})}
