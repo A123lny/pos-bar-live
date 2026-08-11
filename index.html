@@ -12,6 +12,21 @@
     <link rel="apple-touch-icon" href="/pos-bar-live/icons/icon.svg" />
     <link rel="manifest" href="/pos-bar-live/manifest.webmanifest" />
     <title>POS Bar</title>
+    <script>
+      // Decoder SPA GitHub Pages: se 404.html ci ha ridiretto qui con
+      // ?/<path>&<query>, ripristina l'URL originale via history.replaceState
+      // PRIMA che react-router monti. Cosi' il router vede il path deep-link
+      // corretto (es. /riscatta/00010/abc) e non redirige a /login.
+      // Vedi public/404.html per il razionale completo.
+      (function (l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function (s) {
+            return s.replace(/~and~/g, '&');
+          }).join('?');
+          window.history.replaceState(null, '', l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      }(window.location));
+    </script>
     <script type="module" crossorigin src="/pos-bar-live/assets/index-DDx7khb6.js"></script>
     <link rel="stylesheet" crossorigin href="/pos-bar-live/assets/index-CjpPeQV_.css">
   <script id="vite-plugin-pwa:register-sw" src="/pos-bar-live/registerSW.js"></script></head>
